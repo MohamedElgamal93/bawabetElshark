@@ -41,12 +41,12 @@ class chatRoomViewController: UIViewController ,UITableViewDelegate, UITableView
         */
         
         
-        dataBaseRef.child("conversationss").child("-MRP8iJ7n8adjoxhd3KC").child("chat").observe(.childAdded )
+        dataBaseRef.child("conversations").child("-MRUhL4KXnOUHa1MWXEL").child("chat").observe(.childAdded )
         {(snapshot) in
    print (snapshot)
 if let dataArray = snapshot.value as? [String: Any]{
-guard let senderName = dataArray["senderName"]  as? String
-, let messageText = dataArray["text"] as? String else {
+guard let senderName = dataArray["name"]  as? String
+, let messageText = dataArray["message"] as? String else {
                     return
                 }
     let message = Message.init(messageKey: snapshot.key, senderName: senderName, messageText: messageText)
@@ -129,14 +129,15 @@ guard let senderName = dataArray["senderName"]  as? String
                 
          
                 
-                let dataArray :[String: Any] = ["senderName": userName, "text": chatText , "email": self.encodingSellerEmail]
+                let dataArray :[String: Any] = ["name": userName, "message": chatText , "email": self.encodingSellerEmail, "time" : ServerValue.timestamp()]
                 
                // let senderName = dataArray["senderName"]
                 
-let conversation =  databaseRef.child("conversationss").child("-MRP8iJ7n8adjoxhd3KC")
+let conversation =  databaseRef.child("conversations").child("-MRUhL4KXnOUHa1MWXEL")
 let newMessageRef = conversation.child("chat").childByAutoId()
             newMessageRef.updateChildValues(dataArray)
                 self.chatTextField.text = ""
+                self.chatTextField.resignFirstResponder()
 
             }
         }

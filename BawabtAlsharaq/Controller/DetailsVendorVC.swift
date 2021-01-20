@@ -89,9 +89,9 @@ class DetailsVendorVC: UIViewController {
         let sellerMail = self.encodingSellerEmail
       
         let databaseRef = Database.database().reference()
-        let conversations = databaseRef.child("conversationss").childByAutoId()
+        let conversations = databaseRef.child("conversations").childByAutoId()
         
-        let dataArray : [String: Any] = ["buyer" : UserEmail, "seller" : sellerMail]
+        let dataArray : [String: Any] = ["buyer" : UserEmail, "supplier" : sellerMail]
         //let dataArray : [String: Any] = ["buyer" : UserEmail, "seller" : emailOfSeller.text!]
         conversations.setValue(dataArray)
         
